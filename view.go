@@ -7,6 +7,7 @@ package gocui
 import (
 	"bytes"
 	"errors"
+	"github.com/mattn/go-runewidth"
 	"io"
 	"strings"
 
@@ -350,10 +351,7 @@ func (v *View) draw() error {
 				bgColor = v.BgColor
 			}
 
-			if err := v.setRune(x, y, c.chr, fgColor, bgColor); err != nil {
-				return err
-			}
-			x++
+			x += runewidth.RuneWidth(c.chr)
 		}
 		y++
 	}
